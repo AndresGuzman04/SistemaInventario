@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Caracteristica extends Model
 {
-    use HasFactory;
-    
+
     public function categoria(){
         return $this->hasOne(Categoria::class);
     }
@@ -19,4 +18,6 @@ class Caracteristica extends Model
     public function presentacione(){
         return $this->hasOne(Presentacione::class);
     }
+
+    protected $fillable = ['nombre', 'descripcion'];
 }

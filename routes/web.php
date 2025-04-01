@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,8 +8,7 @@ Route::get('/', function () {
 
 Route::view('/panel', 'panel.index')->name('panel');
 
-Route::view('/categorias', 'categoria.index');
-
+Route::resource('categorias', CategoriaController::class);
 
 Route::get('/login', function () {
     return view('auth.login');
