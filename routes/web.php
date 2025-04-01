@@ -8,6 +8,8 @@ Route::get('/', function () {
 
 Route::view('/panel', 'panel.index')->name('panel');
 
+Route::view('/categorias', 'categoria.index');
+
 
 Route::get('/login', function () {
     return view('auth.login');
