@@ -11,7 +11,7 @@ class Categoria extends Model
         return $this->belongsToMany(Producto::class)->withTimestamps();
     }
 
-    public function caracteritica(){
+    public function caracteristica(){
         return $this->belongsTo(Caracteristica::class);
     }
 
