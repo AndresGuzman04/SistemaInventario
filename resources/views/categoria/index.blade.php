@@ -53,19 +53,54 @@
                         </td>
                         <td>
                             @if ($categoria->caracteristica->estado == 1)
-                            <span class="badge rounded-pill text-bg-success">activo</span>
+                                <span class="badge bg-success text-white px-3 py-2 rounded-pill">Activo</span>
                             @else
-                            <span class="badge rounded-pill text-bg-danger">eliminado</span>
+                                <span class="badge bg-danger text-white px-3 py-2 rounded-pill">Eliminado</span>
                             @endif
                         </td>
                         <td>
-                            <form action="{{route('categorias.edit',['categoria'=>$categoria])}}" method="get">
-                                <button type="submit" class="btn btn-warning">Editar</button>
+                            <!-- Botón de Editar -->
+                            <form action="{{ route('categorias.edit', ['categoria' => $categoria]) }}" method="get" class="d-inline">
+                                <button style="width: 40%;" type="submit" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> <!-- Icono de edición -->
+                                </button>
                             </form>
-                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <button type="button" class="btn btn-danger">Eliminar</button>
-                              </div>
+                        
+                            <!-- Botón de Eliminar o Restaurar -->
+                            @if ($categoria->caracteristica->estado == 1)
+                                <button style="width: 40%;" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$categoria->id}}">
+                                    <i class="fas fa-trash"></i> <!-- Icono de papelera -->
+                                </button>
+                            @else
+                                <button style="width: 40%;" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$categoria->id}}">
+                                    <i class="fas fa-undo"></i> <!-- Icono de restaurar -->
+                                </button>
+                            @endif
                         </td>
+                        
+                        </tr>
+                        <!-- Modal -->
+                    <div class="modal fade" id="confirmModal-{{$categoria->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje de confirmación</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ $categoria->caracteristica->estado == 1 ? '¿Seguro que quieres eliminar la categoría?' : '¿Seguro que quieres restaurar la categoría?' }}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <form action="{{ route('categorias.destroy',['categoria'=>$categoria->id]) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                 </tbody>
             </table>
@@ -73,10 +108,6 @@
     </div>
 
 </div>
-
-
-
-
 
 @endsection
 
