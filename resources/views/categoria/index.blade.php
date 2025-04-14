@@ -61,19 +61,19 @@
                         <td>
                             <!-- Botón de Editar -->
                             <form action="{{ route('categorias.edit', ['categoria' => $categoria]) }}" method="get" class="d-inline">
-                                <button style="width: 40%;" type="submit" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> <!-- Icono de edición -->
+                                <button style="width: 40%; height: 35px;" type="submit" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit" style="font-size: 18px;"></i> <!-- Icono de edición -->
                                 </button>
                             </form>
                         
                             <!-- Botón de Eliminar o Restaurar -->
                             @if ($categoria->caracteristica->estado == 1)
-                                <button style="width: 40%;" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$categoria->id}}">
-                                    <i class="fas fa-trash"></i> <!-- Icono de papelera -->
+                                <button style="width: 40%; height: 35px;" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$categoria->id}}">
+                                    <i class="fas fa-trash" style="font-size: 18px;"></i> <!-- Icono de papelera -->
                                 </button>
                             @else
-                                <button style="width: 40%;" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$categoria->id}}">
-                                    <i class="fas fa-undo"></i> <!-- Icono de restaurar -->
+                                <button style="width: 40%; height: 35px;" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$categoria->id}}">
+                                    <i class="fas fa-undo" style="font-size: 18px;"></i> <!-- Icono de restaurar -->
                                 </button>
                             @endif
                         </td>

@@ -7,10 +7,13 @@
         <meta name="description" content="Sistem Ventas " />
         <meta name="author" content="Cheros" />
         <title>Sistema Ventas - @yield('title')</title>
+        <!-- Para Font Awesome 5 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
         @stack('css-datatable')
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link href="{{ asset('css/template.css') }}" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
         @stack('css')
     </head>
     <body class="sb-nav-fixed">
