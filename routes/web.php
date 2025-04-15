@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\PresentacionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

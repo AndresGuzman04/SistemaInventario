@@ -21,11 +21,11 @@ class UpdatePresentacionesRequest extends FormRequest
      */
     public function rules(): array
     {
-        $presentacion = $this->route('presentacion');
-        $caracteristicaId = $presentacion->caracteristica->id;
+        $presentacione = $this->route('presentacione');
+        $caracteristicaId = $presentacione->caracteristica->id;
 
         return [
-            'nombre' => 'required|max:60|unique:presentaciones,nombre,'.$caracteristicaId,
+            'nombre' => 'required|max:60|unique:caracteristicas,nombre,'.$caracteristicaId,
             'descripcion' => 'nullable|max:255'
         ];
     }

@@ -12,15 +12,15 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4 text-center">Crear Categoría</h1>
+    <h1 class="mt-4 text-center">Crear Presentación</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{{ route('panel') }}">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('categorias.index')}}">Categorías</a></li>
-        <li class="breadcrumb-item active">Crear categoría</li>
+        <li class="breadcrumb-item"><a href="{{ route('presentaciones.index')}}">Presentaciones</a></li>
+        <li class="breadcrumb-item active">Crear Presentación</li>
     </ol>
 
     <div class="card text-bg-light">
-        <form action="{{ route('categorias.store') }}" method="post">
+        <form action="{{ route('presentaciones.store') }}" method="post">
             @csrf
             <div class="card-body">
                 <div class="row g-4">
