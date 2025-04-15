@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title','categorias')
+@section('title','marcas')
 
 @push('css-datatable')
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
@@ -14,23 +14,23 @@
 @include('layouts.partials.alert')
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4 text-center">Categorías</h1>
+    <h1 class="mt-4 text-center">Marcas</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{{ route('panel') }}">Inicio</a></li>
-        <li class="breadcrumb-item active">Categorías</li>
+        <li class="breadcrumb-item active">Marcas</li>
     </ol>
 
     
     <div class="mb-4">
-        <a href="{{ route('categorias.create') }}">
-            <button type="button" class="btn btn-primary">Añadir Categorias	</button>
+        <a href="{{ route('marcas.create') }}">
+            <button type="button" class="btn btn-primary">Añadir Marca	</button>
         </a>
     </div>
 
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Tabla Categorias
+            Tabla Marcas
         </div>
         <div class="card-body">
             <table id="datatablesSimple" class="tabel table-striped">
@@ -43,16 +43,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categorias as $categoria)
+                    @foreach ($marcas as $marca)
                     <tr>
                         <td>
-                            {{$categoria->caracteristica->nombre}}
+                            {{$marca->caracteristica->nombre}}
                         </td>
                         <td>
-                            {{$categoria->caracteristica->descripcion}}
+                            {{$marca->caracteristica->descripcion}}
                         </td>
                         <td>
-                            @if ($categoria->caracteristica->estado == 1)
+                            @if ($marca->caracteristica->estado == 1)
                                 <span style="width: 75%;"  class="badge bg-success text-white px-3 py-2 rounded-pill">Activo</span>
                             @else
                                 <span style="width: 75%;" class="badge bg-danger text-white px-3 py-2 rounded-pill">Eliminado</span>
@@ -60,19 +60,19 @@
                         </td>
                         <td>
                             <!-- Botón de Editar -->
-                            <form action="{{ route('categorias.edit', ['categoria' => $categoria]) }}" method="get" class="d-inline">
+                            <form action="{{ route('marcas.edit', ['marca' => $marca]) }}" method="get" class="d-inline">
                                 <button style="width: 40%; height: 35px;" type="submit" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit" style="font-size: 18px;"></i> <!-- Icono de edición -->
                                 </button>
                             </form>
                         
                             <!-- Botón de Eliminar o Restaurar -->
-                            @if ($categoria->caracteristica->estado == 1)
-                                <button style="width: 40%; height: 35px;" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$categoria->id}}">
+                            @if ($marca->caracteristica->estado == 1)
+                                <button style="width: 40%; height: 35px;" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$marca->id}}">
                                     <i class="fas fa-trash" style="font-size: 18px;"></i> <!-- Icono de papelera -->
                                 </button>
                             @else
-                                <button style="width: 40%; height: 35px;" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$categoria->id}}">
+                                <button style="width: 40%; height: 35px;" type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$marca->id}}">
                                     <i class="fas fa-undo" style="font-size: 18px;"></i> <!-- Icono de restaurar -->
                                 </button>
                             @endif
@@ -80,7 +80,7 @@
                         
                         </tr>
                         <!-- Modal -->
-                    <div class="modal fade" id="confirmModal-{{$categoria->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmModal-{{$marca->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -88,11 +88,11 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    {{ $categoria->caracteristica->estado == 1 ? '¿Seguro que quieres eliminar la categoría?' : '¿Seguro que quieres restaurar la categoría?' }}
+                                    {{ $marca->caracteristica->estado == 1 ? '¿Seguro que quieres eliminar la Marca?' : '¿Seguro que quieres restaurar la Marca?' }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    <form action="{{ route('categorias.destroy',['categoria'=>$categoria->id]) }}" method="post">
+                                    <form action="{{ route('marcas.destroy',['marca'=>$marca->id]) }}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-danger">Confirmar</button>
