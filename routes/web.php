@@ -2,6 +2,7 @@
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PresentacionController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,11 +11,12 @@ Route::get('/', function () {
 
 Route::view('/panel', 'panel.index')->name('panel');
 
-Route::resource('categorias', CategoriaController::class);
-
-Route::resource('marcas', MarcaController::class);
-
-Route::resource('presentaciones', PresentacionController::class);
+Route::resources([
+    'categorias' => CategoriaController::class,
+    'marcas' => MarcaController::class,
+    'presentaciones' => PresentacionController::class,
+    'productos' => ProductoController::class,
+]);
 
 Route::get('/login', function () {
     return view('auth.login');

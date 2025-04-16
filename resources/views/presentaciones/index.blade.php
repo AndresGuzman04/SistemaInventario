@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title','categorias')
+@section('title','productos')
 
 @push('css-datatable')
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
@@ -52,11 +52,17 @@
                             {{$presentacione->caracteristica->descripcion}}
                         </td>
                         <td>
-                            @if ($presentacione->caracteristica->estado == 1)
-                                <span style="width: 75%;"  class="badge bg-success text-white px-3 py-2 rounded-pill">Activo</span>
-                            @else
-                                <span style="width: 75%;" class="badge bg-danger text-white px-3 py-2 rounded-pill">Eliminado</span>
-                            @endif
+                            <div class="container" style="font-size: small;">
+                                @if ($presentacione->caracteristica->estado == 1)
+                                <div class="row">
+                                    <span  class="m-1 rounded-pill p-1 bg-success text-white text-center">Activo</span>
+                                </div>
+                                @else
+                                <div class="row">
+                                    <span  class="m-1 rounded-pill p-1 bg-danger text-white text-center">Eliminado</span>
+                                </div>
+                                @endif
+                            </div>
                         </td>
                         <td>
                             <!-- Botón de Editar -->
