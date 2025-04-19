@@ -3,6 +3,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\PresentacionController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ClientesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +17,7 @@ Route::resources([
     'marcas' => MarcaController::class,
     'presentaciones' => PresentacionController::class,
     'productos' => ProductoController::class,
+    'clientes' => ClientesController::class,
 ]);
 
 Route::get('/login', function () {

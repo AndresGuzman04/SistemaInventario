@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
 {
-    use HasFactory;
-    
     public function documento(){
         return $this->belongsTo(Documento::class);
     }
@@ -19,4 +17,6 @@ class Persona extends Model
     public function cliente(){
         return $this->hasOne(Cliente::class);
     }
+
+    protected $fillable = ['razon_social','direccion','tipo_persona', 'telefono', 'correo','documento_id','numero_documento'];
 }

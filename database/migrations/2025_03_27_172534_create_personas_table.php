@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('razon_social', 80);
             $table->string('direccion', 80);
             $table->string('tipo_persona', 20);
+            //telefono
+            $table->string('telefono', 20);
+            //correo
+            $table->string('correo', 80);
             $table->tinyInteger('estado')->default(1);
             $table->foreignId('documento_id')->constrained('documentos')->onDelete('cascade');
             $table->timestamps();

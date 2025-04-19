@@ -67,9 +67,9 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-cubes"></i></div>
                     Productos
                 </a>
-                <a class="nav-link" href="">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
+                <a class="nav-link" href="{{ route('clientes.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-id-card"></i></div>
+                    Clientes
                 </a>
             </div>
         </div>

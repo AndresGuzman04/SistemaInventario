@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clentes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('persona_id')->unique()->constrained('personas')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('documentos', function (Blueprint $table) {
+            $table->dropColumn('numero_documento');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clentes');
+        Schema::table('documentos', function (Blueprint $table) {
+            $table->string('numero_documento',20);
+        });
     }
 };
