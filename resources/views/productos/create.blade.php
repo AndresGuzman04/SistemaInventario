@@ -8,6 +8,8 @@
         resize: none;
     }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 @endpush
 
 @section('content')
@@ -47,21 +49,8 @@
                     <!---Descripción---->
                     <div class="col-md-6">
                         <label for="descripcion" class="form-label">Descripción:</label>
-                        <textarea name="descripcion" style="height: 6.5rem;" id="descripcion" rows="1" class="form-control">{{old('descripcion')}}</textarea>
+                        <textarea name="descripcion" id="descripcion" rows="1" class="form-control">{{old('descripcion')}}</textarea>
                         @error('descripcion')
-                        <small class="text-danger">{{'*'.$message}}</small>
-                        @enderror
-                    </div>
-
-                    <!---Categorías---->
-                    <div class="col-md-6">
-                        <label for="categorias" class="form-label">Categorías:</label>
-                        <select data-size="4" style="height: 6.5rem;" title="Seleccione las categorías" data-live-search="true" name="categorias[]" id="categorias" class="form-control selectpicker show-tick" multiple>
-                            @foreach ($categorias as $item)
-                            <option value="{{$item->id}}" {{ (in_array($item->id , old('categorias',[]))) ? 'selected' : '' }}>{{$item->nombre}}</option>
-                            @endforeach
-                        </select>
-                        @error('categorias')
                         <small class="text-danger">{{'*'.$message}}</small>
                         @enderror
                     </div>
@@ -85,11 +74,24 @@
                         @enderror
                     </div>
 
+                    <!---Categorías---->
+                    <div class="col-md-6">
+                        <label for="categorias" class="form-label">Categorías:</label>
+                        <select data-size="4"  title="Seleccione las categorías" data-live-search="true" name="categorias[]" id="categorias" class="form-control selectpicker show-tick" multiple>
+                            @foreach ($categorias as $item)
+                            <option value="{{$item->id}}" {{ (in_array($item->id , old('categorias',[]))) ? 'selected' : '' }}>{{$item->nombre}}</option>
+                            @endforeach
+                        </select>
+                        @error('categorias')
+                        <small class="text-danger">{{'*'.$message}}</small>
+                        @enderror
+                    </div>
+
                     <!---Marca---->
                     <div class="col-md-6">
                         <label for="marca_id" class="form-label">Marca:</label>
                         <select data-size="4" title="Seleccione una marca" data-live-search="true" name="marca_id" id="marca_id" class="form-control selectpicker show-tick">
-                            <option value="" disabled selected>Seleccione la Marca</option>
+                            
                             @foreach ($marcas as $item)
                             <option value="{{$item->id}}" {{ old('marca_id') == $item->id ? 'selected' : '' }}>{{$item->nombre}}</option>
                             @endforeach
@@ -103,7 +105,7 @@
                     <div class="col-md-6">
                         <label for="presentacione_id" class="form-label">Presentación:</label>
                         <select data-size="4" title="Seleccione una presentación" data-live-search="true" name="presentacione_id" id="presentacione_id" class="form-control selectpicker show-tick">
-                            <option value="" disabled selected>Seleccione la Presentación</option>
+                            
                             @foreach ($presentaciones as $item)
                             <option value="{{$item->id}}" {{ old('presentacione_id') == $item->id ? 'selected' : '' }}>{{$item->nombre}}</option>
                             @endforeach
@@ -143,5 +145,5 @@
 @endsection
 
 @push('js')
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 @endpush

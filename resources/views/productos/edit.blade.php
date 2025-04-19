@@ -7,7 +7,8 @@
 @endpush
 
 @push('css')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 @endpush
 @section('content')
 
@@ -47,25 +48,8 @@
                     <!---Descripción---->
                     <div class="col-md-6">
                         <label for="descripcion" class="form-label">Descripción:</label>
-                        <textarea name="descripcion" id="descripcion" style="height: 6.5rem;" rows="3" class="form-control">{{old('descripcion',$producto->descripcion)}}</textarea>
+                        <textarea name="descripcion" id="descripcion"  rows="1" class="form-control">{{old('descripcion',$producto->descripcion)}}</textarea>
                         @error('descripcion')
-                        <small class="text-danger">{{'*'.$message}}</small>
-                        @enderror
-                    </div>
-
-                    <!---Categorías---->
-                    <div class="col-md-6">
-                        <label for="categorias" class="form-label">Categorías:</label>
-                        <select data-size="4" style="height: 6.5rem;" title="Seleccione las categorías" data-live-search="true" name="categorias[]" id="categorias" class="form-control selectpicker show-tick" multiple>
-                            @foreach ($categorias as $item)
-                            @if (in_array($item->id,$producto->categorias->pluck('id')->toArray()))
-                            <option selected value="{{$item->id}}" {{ (in_array($item->id , old('categorias',[]))) ? 'selected' : '' }}>{{$item->nombre}}</option>
-                            @else
-                            <option value="{{$item->id}}" {{ (in_array($item->id , old('categorias',[]))) ? 'selected' : '' }}>{{$item->nombre}}</option>
-                            @endif
-                            @endforeach
-                        </select>
-                        @error('categorias')
                         <small class="text-danger">{{'*'.$message}}</small>
                         @enderror
                     </div>
@@ -84,6 +68,23 @@
                         <label for="img_path" class="form-label">Imagen:</label>
                         <input type="file" name="img_path" id="img_path" class="form-control" accept="image/*">
                         @error('img_path')
+                        <small class="text-danger">{{'*'.$message}}</small>
+                        @enderror
+                    </div>
+
+                    <!---Categorías---->
+                    <div class="col-md-6">
+                        <label for="categorias" class="form-label">Categorías:</label>
+                        <select data-size="4" style="height: 6.5rem;" title="Seleccione las categorías" data-live-search="true" name="categorias[]" id="categorias" class="form-control selectpicker show-tick" multiple>
+                            @foreach ($categorias as $item)
+                            @if (in_array($item->id,$producto->categorias->pluck('id')->toArray()))
+                            <option selected value="{{$item->id}}" {{ (in_array($item->id , old('categorias',[]))) ? 'selected' : '' }}>{{$item->nombre}}</option>
+                            @else
+                            <option value="{{$item->id}}" {{ (in_array($item->id , old('categorias',[]))) ? 'selected' : '' }}>{{$item->nombre}}</option>
+                            @endif
+                            @endforeach
+                        </select>
+                        @error('categorias')
                         <small class="text-danger">{{'*'.$message}}</small>
                         @enderror
                     </div>
@@ -136,6 +137,5 @@
 @endsection
 
 @push('js')
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
-<script src="{{ asset('js/datatables-simple-demo.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 @endpush
