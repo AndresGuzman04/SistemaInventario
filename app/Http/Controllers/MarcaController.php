@@ -24,9 +24,11 @@ class MarcaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('marca.create');
+        return view('marca.create', [
+            'redirect' => $request->input('redirect')
+        ]);
     }
 
     /**
@@ -44,6 +46,12 @@ class MarcaController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
+        }
+
+        // Redirección condicional
+        if ($request->filled('redirect') && $request->input('redirect') === 'productos.create') {
+            $old = json_decode($request->input('old'), true);
+            return redirect()->route('productos.create')->withInput($old)->with('success', 'Marca creada');
         }
 
         return redirect()->route('marcas.index')->with('success', 'Marca registrada');

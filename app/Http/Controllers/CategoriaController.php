@@ -29,8 +29,7 @@ class CategoriaController extends Controller
     public function create(Request $request)
     {
         return view('categoria.create', [
-            'redirect' => $request->input('redirect'),
-            'oldFormData' => $request->input('old') // puede venir en JSON
+            'redirect' => $request->input('redirect')
         ]);
     }
 

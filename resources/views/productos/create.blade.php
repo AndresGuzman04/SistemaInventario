@@ -33,7 +33,7 @@
                     <!----Codigo---->
                     <div class="col-md-6">
                         <label for="codigo" class="form-label">Código:</label>
-                        <input type="text" name="codigo" id="codigo" class="form-control" value="{{ old('codigo') }}">
+                        <input type="text" name="codigo" id="codigo" class="form-control" value="{{ old('codigo', $datosTemporales['codigo'] ?? '') }}">
                         @error('codigo')
                         <small class="text-danger">{{'*'.$message}}</small>
                         @enderror
@@ -51,7 +51,7 @@
                     <!---Descripción---->
                     <div class="col-md-6">
                         <label for="descripcion" class="form-label">Descripción:</label>
-                        <textarea name="descripcion" id="descripcion" rows="1" class="form-control">{{old('descripcion')}}</textarea>
+                        <textarea name="descripcion" id="descripcion" rows="1" class="form-control">{{old('descripcion', $datosTemporales['descripcion'] ?? '')}}</textarea>
                         @error('descripcion')
                         <small class="text-danger">{{'*'.$message}}</small>
                         @enderror
@@ -60,17 +60,22 @@
                     <!---Fecha de vencimiento---->
                     <div class="col-md-6">
                         <label for="fecha_vencimiento" class="form-label">Fecha de vencimiento:</label>
-                        <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" value="{{old('fecha_vencimiento')}}">
+                        <div class="input-group">
+                            <input type="date" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" value="{{old('fecha_vencimiento')}}">
+                            <button type="button" class="btn btn-outline-secondary" onclick="limpiarFecha()">🧹</button>
+                        </div>
                         @error('fecha_vencimiento')
                         <small class="text-danger">{{'*'.$message}}</small>
                         @enderror
                     </div>
-                    
 
                     <!---Imagen---->
                     <div class="col-md-6">
                         <label for="img_path" class="form-label">Imagen:</label>
-                        <input type="file" name="img_path" id="img_path" class="form-control" accept="image/*">
+                        <div class="input-group">
+                            <input type="file" name="img_path" id="img_path" class="form-control" accept="image/*">
+                            <button type="button" class="btn btn-outline-secondary" onclick="limpiarImagen()">🧹</button>
+                        </div>
                         @error('img_path')
                         <small class="text-danger">{{'*'.$message}}</small>
                         @enderror
@@ -82,10 +87,10 @@
                         <div class="input-group">
                             <select data-size="4"  title="Seleccione las categorías" data-live-search="true" name="categorias[]" id="categorias" class="form-control selectpicker show-tick" multiple>
                                 @foreach ($categorias as $item)
-                                <option value="{{$item->id}}" {{ (in_array($item->id , old('categorias',[]))) ? 'selected' : '' }}>{{$item->nombre}}</option>
+                                <option value="{{$item->id}}" {{ (in_array($item->id , old('categorias',[] ))) ? 'selected' : '' }}>{{$item->nombre}}</option>
                                 @endforeach
                             </select>
-                            <a  href="{{ route('categorias.create', ['redirect' => 'productos.create', 'old' => json_encode(old())]) }}">
+                            <a  href="{{ route('categorias.create', ['redirect' => 'productos.create']) }}">
                                 <button type="button" class="btn btn-outline-primary" >
                                     <i class="fas fa-plus"></i> 
                                 </button>
@@ -106,9 +111,11 @@
                                 <option value="{{$item->id}}" {{ old('marca_id') == $item->id ? 'selected' : '' }}>{{$item->nombre}}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#verModalPresentacion">
-                                <i class="fas fa-plus"></i>
-                            </button>
+                            <a  href="{{ route('marcas.create', ['redirect' => 'productos.create']) }}">
+                                <button type="button" class="btn btn-outline-primary" >
+                                    <i class="fas fa-plus"></i> 
+                                </button>
+                            </a>
                         </div> <!-- Closing div for input-group -->
                         @error('marca_id')
                         <small class="text-danger">{{'*'.$message}}</small>
@@ -124,9 +131,11 @@
                                     <option value="{{ $item->id }}" {{ old('presentacione_id') == $item->id ? 'selected' : '' }}>{{ $item->nombre }}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#verModalPresentacion">
-                                <i class="fas fa-plus"></i>
-                            </button>
+                            <a  href="{{ route('presentaciones.create', ['redirect' => 'productos.create']) }}">
+                                <button type="button" class="btn btn-outline-primary" >
+                                    <i class="fas fa-plus"></i> 
+                                </button>
+                            </a>
                         </div>
                         @error('presentacione_id')
                         <small class="text-danger">{{'*'.$message}}</small>
@@ -183,6 +192,16 @@
         input.addEventListener('change', guardarTemporal);
     });
 
+</script>
+
+<script>
+    function limpiarFecha() {
+        document.getElementById('fecha_vencimiento').value = '';
+    }
+
+    function limpiarImagen() {
+        document.getElementById('img_path').value = '';
+    }
 </script>
 
 @endpush

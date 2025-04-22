@@ -24,9 +24,11 @@ class PresentacionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('presentaciones.create');
+        return view('presentaciones.create', [
+            'redirect' => $request->input('redirect')
+        ]);
     }
 
     /**
@@ -43,6 +45,13 @@ class PresentacionController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
+        }
+
+
+        // Redirección condicional
+        if ($request->filled('redirect') && $request->input('redirect') === 'productos.create') {
+            $old = json_decode($request->input('old'), true);
+            return redirect()->route('productos.create')->withInput($old)->with('success', 'Presentación creada');
         }
 
         return redirect()->route('presentaciones.index')->with('success', 'Presentación registrada');

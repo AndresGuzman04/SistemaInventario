@@ -43,7 +43,6 @@
                     </div>
                     <!-- Redirección y old data -->
                     <input type="hidden" name="redirect" value="{{ $redirect ?? '' }}">
-                    <input type="hidden" name="old" value="{{ $oldFormData ?? '' }}">
                 </div>
 
             </div>

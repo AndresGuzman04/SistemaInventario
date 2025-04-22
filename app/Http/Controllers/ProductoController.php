@@ -21,10 +21,17 @@ class ProductoController extends Controller
     {
         try {
             // Puedes validar o solo guardar en sesión
-            // session(['producto_temporal' => $request->all()]);
+            session([
+                'producto_temporal' => $request->all(),
+                'producto_temporal_guardado_en' => now()
+            ]);
+
+            //con auth
+            // session(['producto_temporal_' . auth()->id() => $request->all()]);
+
 
             // Guardar los datos por 10 minutos
-            Cache::put('producto_temporal', $request->all(), now()->addMinutes(10));
+            //Cache::put('producto_temporal', $request->all(), now()->addMinutes(10));
 
             //Con auth
             // $cacheKey = 'producto_temporal_' . auth()->id();
@@ -52,10 +59,18 @@ class ProductoController extends Controller
     public function create()
     {
         // Session
-        //$datosTemporales = session('producto_temporal');
+        // Recuperar los datos y la hora de guardado
+        $datosTemporales = session('producto_temporal');
+        $tiempoGuardado = session('producto_temporal_guardado_en');
+
+        // Si pasaron más de 10 minutos, limpiar los datos
+        if ($tiempoGuardado && now()->diffInMinutes($tiempoGuardado) > 10) {
+            session()->forget(['producto_temporal', 'producto_temporal_guardado_en']);
+            $datosTemporales = null;
+        }
 
         // Cache
-        $datosTemporales = Cache::get('producto_temporal');
+        //$datosTemporales = Cache::get('producto_temporal');
 
         // Cache y auth
         //$datosTemporales = Cache::get('producto_temporal_' . auth()->id());
@@ -116,9 +131,11 @@ class ProductoController extends Controller
         }
 
         // session borrar
-        // session()->forget('producto_temporal');
+        session()->forget('producto_temporal');
+        // session()->forget('producto_temporal_' . auth()->id());
 
-        Cache::forget('producto_temporal'); // elimina los datos temporales
+
+        // Cache::forget('producto_temporal'); // elimina los datos temporales
         return redirect()->route('productos.index')->with('success', 'Producto registrado');
     }
 
