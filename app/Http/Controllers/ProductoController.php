@@ -11,16 +11,38 @@ use App\Models\Producto;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class ProductoController extends Controller
 {
+
+    public function guardarTemporal(Request $request)
+    {
+        try {
+            // Puedes validar o solo guardar en sesión
+            // session(['producto_temporal' => $request->all()]);
+
+            // Guardar los datos por 10 minutos
+            Cache::put('producto_temporal', $request->all(), now()->addMinutes(10));
+
+            //Con auth
+            // $cacheKey = 'producto_temporal_' . auth()->id();
+            // Cache::put($cacheKey, $request->all(), now()->addMinutes(10));
+
+    
+            return response()->json(['mensaje' => 'Datos guardados temporalmente.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al guardar temporalmente: ' . $e->getMessage()], 500);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $productos = Producto::with(['categorias.caracteristica','marca.caracteristica','presentacione.caracteristica'])->latest()->get();
-    
         return view('productos.index',compact('productos'));
     }
 
@@ -29,6 +51,15 @@ class ProductoController extends Controller
      */
     public function create()
     {
+        // Session
+        //$datosTemporales = session('producto_temporal');
+
+        // Cache
+        $datosTemporales = Cache::get('producto_temporal');
+
+        // Cache y auth
+        //$datosTemporales = Cache::get('producto_temporal_' . auth()->id());
+
         $marcas = Marca::join('caracteristicas as c', 'marcas.caracteristica_id', '=', 'c.id')
             ->select('marcas.id as id', 'c.nombre as nombre')
             ->where('c.estado', 1)
@@ -44,7 +75,7 @@ class ProductoController extends Controller
             ->where('c.estado', 1)
             ->get();
 
-        return view('productos.create', compact('marcas', 'presentaciones', 'categorias'));
+        return view('productos.create', compact('marcas', 'presentaciones', 'categorias', 'datosTemporales'));
     }
 
     /**
@@ -84,6 +115,10 @@ class ProductoController extends Controller
             DB::rollBack();
         }
 
+        // session borrar
+        // session()->forget('producto_temporal');
+
+        Cache::forget('producto_temporal'); // elimina los datos temporales
         return redirect()->route('productos.index')->with('success', 'Producto registrado');
     }
 

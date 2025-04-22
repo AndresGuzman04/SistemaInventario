@@ -23,7 +23,9 @@
     
     <div class="mb-4">
         <a href="{{ route('categorias.create') }}">
-            <button type="button" class="btn btn-primary">Añadir Categorias	</button>
+            <button type="button" class="btn btn-primary" >
+                Añadir Categorias	
+            </button>
         </a>
     </div>
 
@@ -85,6 +87,7 @@
                         </td>
                         
                         </tr>
+
                         <!-- Modal -->
                     <div class="modal fade" id="confirmModal-{{$categoria->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -120,4 +123,11 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
 <script src="{{ asset('js/datatables-simple-demo.js') }}"></script>
+@if ($errors->any())
+<script>
+    var myModal = new bootstrap.Modal(document.getElementById('verModal-create'));
+    myModal.show();
+</script>
+@endif
+
 @endpush

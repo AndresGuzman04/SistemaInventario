@@ -26,9 +26,12 @@ class CategoriaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('categoria.create');
+        return view('categoria.create', [
+            'redirect' => $request->input('redirect'),
+            'oldFormData' => $request->input('old') // puede venir en JSON
+        ]);
     }
 
     /**
@@ -43,12 +46,20 @@ class CategoriaController extends Controller
                 'caracteristica_id' => $caracteristica->id
             ]);
             DB::commit();
+
         } catch (Exception $e) {
             DB::rollBack();
+        }    
+
+         // Redirección condicional
+        if ($request->filled('redirect') && $request->input('redirect') === 'productos.create') {
+            $old = json_decode($request->input('old'), true);
+            return redirect()->route('productos.create')->withInput($old)->with('success', 'Categoría creada');
         }
 
-        return redirect()->route('categorias.index')->with('success', 'Categoría registrada');
+        return redirect()->route('categorias.index')->with('success', 'Categoría creada');
     }
+    
 
     /**
      * Display the specified resource.
@@ -57,7 +68,6 @@ class CategoriaController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      */

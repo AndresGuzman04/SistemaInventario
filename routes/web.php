@@ -20,6 +20,8 @@ Route::resources([
     'clientes' => ClientesController::class,
 ]);
 
+Route::post('/productos/guardar-temporal', [ProductoController::class, 'guardarTemporal'])->name('productos.guardarTemporal');
+
 Route::get('/login', function () {
     return view('auth.login');
 });

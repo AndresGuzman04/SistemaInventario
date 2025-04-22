@@ -113,7 +113,7 @@
                                                 <i class="fas fa-trash me-2"></i> Eliminar
                                             </button>
                                         @else
-                                            <button style="width: 100%; height: 35px;" type="button" class="btn btn-danger btn-sm w-full" data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $item->id }}">
+                                            <button style="width: 100%; height: 35px;" type="button" class="btn btn-success btn-sm w-full" data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $item->id }}">
                                                 <i class="fas fa-undo me-2"></i> Restaurar
                                             </button>
                                         @endif
